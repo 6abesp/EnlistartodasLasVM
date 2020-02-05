@@ -8,6 +8,7 @@ $path = read-host "coloca una direccion en tu equipo"
 Add-Content -Path  $path  -Value '"ID","NombreVM","ResourceGroup","subscripcion", "TamaÃ±o","sistema operativo","version", "versiÃ³n","iPrivada","ipPÃºblica","estado","tiempo","red", "subred","dns"'
 
 
+foreach($Subx in $Subxs)
 {
  Set-AzContext -SubscriptionId $Subx
 #Get-AzContext
