@@ -1,21 +1,14 @@
 #Connect-AzAccount
 
 #guardar todas las subscripciones
-#$Subxs=Get-AzSubscription
 
 $path = read-host "coloca una direccion en tu equipo"  
 
-#Coloca una dirección en tu equipo
-#$path="C:\Users\gabesp\Documents\CLIENTES\CAT\25.csv"
-Add-Content -Path  $path  -Value '"ID","NombreVM","ResourceGroup","subscripcion", "Tamaño","sistema operativo","version", "versión","iPrivada","ipPública","estado","tiempo","red", "subred","ambiente","APLICACION","BaseDatos","area","Creado","iniciativa","Responsable","Rol","Task","Work Order"'
-
-$Subx = read-host "coloca la clave de tu subscripcion"
 
 
  Set-AzContext -SubscriptionId $Subx
 #Get-AzContext
 
-##Obtener todas las máquinas virtuales
 
 $vms =  get-azvm
 
@@ -37,11 +30,6 @@ $psObject= foreach($nic in $nics)
     $prvip =  $nic.IpConfigurations | select-object -ExpandProperty PrivateIpAddress
     $alloc =  $nic.IpConfigurations | select-object -ExpandProperty PrivateIpAllocationMethod
     $pip =  $nic.IpConfigurations | select-object -ExpandProperty PublicIpAddress
-#    $datadisks=$vm.StorageProfile.DataDisks
-
-
-
-    $disk=$vm
     
         if (!$pip) 
             {
@@ -61,9 +49,10 @@ $psObject= foreach($nic in $nics)
     $SubNet =  $nic.IpConfigurations.Subnet.Id.Split("/")[10]
     $nsg=$nic.IpConfigurations | select-object -ExpandProperty ApplicationSecurityGroups
  #imprimir
-    $print = @(" $idnum, $($vm.Name) ,$rg,$($Subx.Name),$($($zs.HardwareProfile).VmSize),$0s2, $os, $0s3,$prvip, $publicIp, $($($vmst.Statuses[(($($vmst.Statuses).Length)-1)]).DisplayStatus),$dns" ) 
     $idnum++
     $print | foreach { Add-Content -Path $path -Value $_ }
 
     }
+ 
+
  
