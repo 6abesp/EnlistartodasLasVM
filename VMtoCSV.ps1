@@ -1,14 +1,19 @@
 #Connect-AzAccount
 
 #guardar todas las subscripciones
+$Subxs=Get-AzSubscription
 
 $path = read-host "coloca una direccion en tu equipo"  
 
+Add-Content -Path  $path  -Value '"ID","NombreVM","ResourceGroup","subscripcion", "TamaÃ±o","sistema operativo","version", "versiÃ³n","iPrivada","ipPÃºblica","estado","tiempo","red", "subred","dns"'
 
 
+foreach($Subx in $Subsx)
+{
  Set-AzContext -SubscriptionId $Subx
 #Get-AzContext
 
+##Obtener todas las mÃ¡quinas virtuales
 
 $vms =  get-azvm
 
@@ -49,9 +54,11 @@ $psObject= foreach($nic in $nics)
     $SubNet =  $nic.IpConfigurations.Subnet.Id.Split("/")[10]
     $nsg=$nic.IpConfigurations | select-object -ExpandProperty ApplicationSecurityGroups
  #imprimir
+    $print = @(" $idnum, $($vm.Name) ,$rg,$($Subx.Name),$zs,$0s2, $os, $0s3,$prvip, $publicIp, $($($vmst.Statuses[(($($vmst.Statuses).Length)-1)]).DisplayStatus),$Vnet,$SubNet,$dns" ) 
     $idnum++
     $print | foreach { Add-Content -Path $path -Value $_ }
 
+    }
     }
  
 
