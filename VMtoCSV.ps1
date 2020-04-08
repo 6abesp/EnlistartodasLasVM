@@ -57,7 +57,7 @@ $psObject= foreach($nic in $nics)
     $SubNet =  $nic.IpConfigurations.Subnet.Id.Split("/")[10]
     $nsg=$nic.IpConfigurations | select-object -ExpandProperty ApplicationSecurityGroups
  #imprimir
-    $print = @(" $idnum, $($vm.Name) ,$rg,$($Subx.Name),$zs,$0s2, $os, $0s3,$prvip, $publicIp, $($($vmst.Statuses[(($($vmst.Statuses).Length)-1)]).DisplayStatus),$Vnet,$SubNet,$dns" ) 
+    $print = @(" $idnum, $($vm.Name) ,$rg,$($Subx.Name),$zs,$0s2, $os, $0s3,$prvip, $publicIp, $($($vmst.Statuses[(($($vmst.Statuses).Length)-1)]).DisplayStatus),$Vnet,$SubNet,vm" ) 
     $idnum++
     $print | foreach { Add-Content -Path $path -Value $_ }
 
