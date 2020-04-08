@@ -3,13 +3,16 @@
 #guardar todas las subscripciones
 $Subxs=Get-AzSubscription
 
-$path = read-host "coloca una direccion en tu equipo"  
+$path1 = read-host "coloca una direccion en tu equipo"  
+$nombre=read-host "coloca el nombre que tendrá el archivo"
+$path= $path1 + $nombre+".csv"
+$Subx= "ingresa el ID de tu subscripción"
 
-Add-Content -Path  $path  -Value '"ID","NombreVM","ResourceGroup","subscripcion", "TamaÃ±o","sistema operativo","version", "versiÃ³n","iPrivada","ipPÃºblica","estado","tiempo","red", "subred","dns"'
+
+Add-Content -Path  $path  -Value '"ID","NombreVM","ResourceGroup","subscripcion", "TamaÃ±o","sistema operativo","version", "versiÃ³n","iPrivada","ipPÃºblica","estado","red", "subred","dns"'
 
 
-foreach($Subx in $Subxs)
-{
+
  Set-AzContext -SubscriptionId $Subx
 #Get-AzContext
 
@@ -59,7 +62,7 @@ $psObject= foreach($nic in $nics)
     $print | foreach { Add-Content -Path $path -Value $_ }
 
     }
-    }
+    
  
 
  
